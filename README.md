@@ -95,3 +95,26 @@
 1. 회원 등록: POST /member/registration
 2. 회원 정보 관리: PUT /member/members/{userId}
 3. 로그인: POST /member/login
+
+---
+### 시퀀스 다이어그램
+```mermaid
+sequenceDiagram 
+    participant Client
+    participant Order
+    participant Payment
+    participant Delivery
+    participant Catalog
+    Client ->> Order: 주문요청
+    Order ->> Payment: 결제 수단 조회
+    Payment -->> Order: 결제 수단 정보
+    Order ->> Delivery: 배송지 조회
+    Delivery -->> Order: 배송지 정보
+    Order ->> Payment: 결제 요청 (결제 수단, orderId)
+    Payment -->> Order: 결제 처리 결과
+    Order ->> Delivery: 배송 요청(orderId, 배송지 ID)
+    Delivery -->> Order: 배송 요청 결과
+    Order ->> Catalog: 재고 수량 감소
+    Catalog -->> Order: 재고 수량 변경 응답
+    Order -->> Client: 주문 처리 결과
+```
