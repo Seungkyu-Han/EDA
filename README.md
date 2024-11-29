@@ -13,15 +13,18 @@
 10. 구매자는 회원으로 등록할 수 있다.
 11. 회원은 로그인을 할 수 있다.
 
+---
+
 ### 서비스 분할
 
 #### Product
 - 역할: 상품 정보 관리
 - 기능
-1. 결제 수단 등록
-2. 결제 수단 변경
-3. 결제
-4. 결제 결과 조회
+1. 상품 등록
+2. 상품 수정
+3. 상품 수량 변경
+4. 상품 조회
+5. 상품 검색
 
 #### Payment
 - 역할: 결제 처리와 관련된 작업
@@ -50,3 +53,45 @@
 - 기능
 1. 회원 등록
 2. 회원 정보 관리
+
+---
+
+### 기능 명세서
+
+#### Product
+- 역할: 상품 정보 관리
+- 기능
+1. 상품 등록: POST /products
+2. 상품 수정: PUT /products/{productId}
+3. 상품 수량 변경: PUT /products/{productId}/inventory
+4. 상품 조회: GET /products/{productId}
+5. 상품 검색: POST /products/search
+
+#### Payment
+- 역할: 결제 처리와 관련된 작업
+- 기능
+1. 결제 수단 등록: POST /payments/method
+2. 결제 수단 변경: PUT /payments/method/{methodId}
+3. 결제: POST /payments/process-payment
+4. 결제 결과 조회: GET /payments/payments/{paymentId}
+
+#### Order
+- 역할: 주문 수행 및 상태 관리
+- 기능
+1. 상품 주문: POST /order/process-order
+2. 주문 상태 조회: GET /order/orders/{orderId}
+3. 주문 내역 보기: GET /order/orders
+
+#### Delivery
+- 역할: 주문 완료된 제품 배송, 상태 관리
+- 기능
+1. 배송지 등록: POST /delivery/addresses
+2. 배송 처리: POST /delivery/process-delivery
+3. 배송 상태 조회: GET /delivery/deliveries/{deliveryId}
+
+#### User
+- 역할: 회원 관리 및 인증
+- 기능
+1. 회원 등록: POST /member/registration
+2. 회원 정보 관리: PUT /member/members/{userId}
+3. 로그인: POST /member/login
